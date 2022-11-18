@@ -1,1 +1,44 @@
+<html>
+    <head>
+        <script src="dist/bundle.js"></script>
+    </head>
+    <body> 
+	 <h3> Check Connection</h3>
+	 <button type="button" onclick="connectw()">Hit me!</button><br>
+         <hr>
+	 <h3> Retrieve PublicKey</h3>
+	 <button type="button" onclick="retrievePublicKey()">Hit me!</button><br>
+	 <hr>
+	 <h3>Sign and Submit Transaction</h3>
+	 <p><b>Input the destination address here:</b></p> 	 
+         <input type="text" id="dest" placeholder="Receiver's publick key" size="65"></input><br>
+	 <p><b> Input the amount to send:</b><p>
+         <input type="text" id="amount" placeholder="Input transfer amount" size="20"></input><br/>
+	 <p><b>Send Transaction</b></p>
+	 <button type="button" onclick="sendw()">Sign and submit here</button>
+    </body>
+    <script>
+        function sendw() {
+            var dest = document.getElementById("dest").value;
+            var amount = document.getElementById("amount").value;
+            send(dest, amount);
+        }
 
+        function connectw() {
+            if (freighterApi.isConnected()) {
+                alert('Connected');
+            } else {
+                alert('No connection');
+            }
+        }
+        function retrievePublicKey() {
+            if (freighterApi.isConnected()) {
+                const result = freighterApi.getPublicKey();
+                result.then((value) => {
+                    console.log(value);
+                    alert("publicKey: " + value);
+                });
+            }
+        }
+    </script>
+</html>
